@@ -1,22 +1,53 @@
-# SQL Data Warehouse Project
+# SQL Data Warehouse Project: CRM & ERP Integration
 
-**Building a modern Data Warehouse with SQL Server.**
+**Building a modern Data Warehouse with SQL Server, SSIS, and Stored Procedures.**
 
 ## 📌 Project Overview
-In this project, I am building a Data Warehouse from scratch. The goal is to integrate data from two different sources (CRM and ERP) and transform it into a clean format for analysis.
+In this project, I built a Data Warehouse from scratch to integrate disparate data from a **CRM system** and an **ERP system**. The goal was to transform raw, messy data into a clean, actionable Star Schema for business intelligence.
 
-## 🎯 Project Requirements
-* **Data Ingestion:** Load raw data (Bronze Layer).
-* **Data Cleaning:** Remove duplicates and standardize data (Silver Layer).
-* **Reporting:** Create a Star Schema for business analysis (Gold Layer).
+![Data Architecture](docs/data_architecture.png)
+*(High-Level Architecture: Bronze, Silver, and Gold Layers)*
 
-## 🛠️ Tools Used
-* **SQL Server Express**
-* **SQL Server Management Studio (SSMS)**
-* **Git & GitHub**
+## 🏗️ Architecture & Layers
+The project follows the **Medallion Architecture** (Bronze, Silver, Gold) to ensure data quality and traceability.
+
+### 🥉 Bronze Layer (Raw Ingestion)
+* **Purpose:** Acts as a landing zone for raw data files (CSV) from the source systems.
+* **Process:** Data is ingested "as-is" without transformation.
+* **Load Type:** Full Load (Truncate & Insert) using Batch Processing.
+* **Sources:**
+    * **CRM Data:** Sales details, customer info, product info.
+    * **ERP Data:** Customer demographics (birthdays), product categories, location data.
+
+### 🥈 Silver Layer (Transformation & Quality)
+* **Purpose:** The cleaning and standardization engine.
+* **Transformations:**
+    * **Standardization:** Unified naming conventions and date formats across CRM and ERP sources.
+    * **Data Cleansing:** Handled NULL values, removed duplicates, and corrected invalid entries.
+    * **Integration:** Merged customer and product tables from both sources into unified datasets.
+    * **Automation:** Implemented via **SQL Stored Procedures** for repeatable transformations.
+
+### 🥇 Gold Layer (Business Reporting)
+* **Purpose:** The final layer optimized for BI and Analytics.
+* **Structure:** **Star Schema** (Fact & Dimension tables).
+* **Data Mart:**
+    * **Fact Table:** `gold.fact_sales` (Transactions, Quantities, Revenue).
+    * **Dimensions:** `gold.dim_customers` (Who bought it), `gold.dim_products` (What was bought).
+* **Outcome:** Ready for consumption by tools like Power BI or Tableau.
+
+## 📊 Data Model (Star Schema)
+The final data model is designed for high-performance querying and reporting.
+
+![Data Model](docs/data_model.png)
+
+## 🛠️ Tech Stack
+* **Database:** SQL Server Express
+* **ETL & Orchestration:** SQL Stored Procedures
+* **Design & Modeling:** Star Schema / Dimensional Modeling
+* **Version Control:** Git & GitHub
 
 ## 📄 License
 This project is licensed under the MIT License.
 
 ## 👤 About Me
-This is part of my Data Engineering portfolio.
+This is part of my Data Engineering portfolio. I am passionate about building scalable data pipelines and mastering the modern data stack.
